@@ -8,12 +8,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # 切换分支
+      # 读取仓库内容
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v4
       # 使用 node:20
       - name: use Node.js 20
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: 20
       # npm install
@@ -24,7 +24,7 @@ jobs:
         env:
           CI: true
       - name: vuepress-deploy
-        uses: IT4Change/vuepress-build-and-deploy@master
+        uses: easingthemes/ssh-deploy@v5.0.0
         env:
           SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}
           ARGS: "-avz --delete"
