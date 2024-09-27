@@ -23,12 +23,13 @@ jobs:
           npm run docs:build
         env:
           CI: true
-      - name: vuepress-deploy
-        uses: easingthemes/ssh-deploy@v5.0.0
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}
-          ARGS: "-avz --delete"
-          SOURCE: "dist/"
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: ${{ secrets.TARGET }}
+      - name: Deploy to Server
+        uses: easingthemes/ssh-deploy@main
+        with:
+              SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}
+              ARGS: "-rlgoDzvc -i --delete"
+              SOURCE: "dist/"
+              REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+              REMOTE_USER: ${{ secrets.REMOTE_USER }}
+              TARGET: ${{ secrets.TARGET }}
+              EXCLUDE: "/dist/, /node_modules/"
