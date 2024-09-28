@@ -23,7 +23,7 @@ jobs:
           npm run docs:build
         env:
           CI: true
-      - name: Deploy to Server
+      - name: 部署到服务器
         uses: easingthemes/ssh-deploy@main
         with:
               SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}
