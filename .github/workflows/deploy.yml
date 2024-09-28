@@ -24,7 +24,10 @@ jobs:
 
       # run build script
       - name: Build VuePress site
-        run: npm docs:build
+        run: |
+          npm i -D vuepress@next
+          npm i -D vuepress-theme-plume @vuepress/bundler-vite@next
+          npm docs:build
       - name: 部署到服务器
         uses: easingthemes/ssh-deploy@v2.1.1
         with:
