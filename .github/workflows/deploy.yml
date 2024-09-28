@@ -24,9 +24,10 @@ jobs:
         env:
           CI: true
       - name: 部署到服务器
-        uses: easingthemes/ssh-deploy@main
+        uses: easingthemes/ssh-deploy@v2.1.1
         with:
               SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}
+              ## 复制操作的参数。"-avzr --delete"意味部署时清空服务器目标目录下的文件
               ARGS: "-rlgoDzvc -i --delete"
               SOURCE: "dist/"
               REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
