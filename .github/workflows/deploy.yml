@@ -20,6 +20,11 @@ jobs:
       - name: npm install and build
         run: |
           npm install
+          npm i -D @vuepress/bundler-vite@next
+          # 安装 vuepress
+          npm i -D vuepress@next
+          # 安装 主题和打包工具
+          npm i -D vuepress-theme-plume @vuepress/bundler-vite@next
           npm run docs:build
         env:
           CI: true
