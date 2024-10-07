@@ -1,41 +1,35 @@
 name: docs
 
 on:
-  # trigger deployment on every push to main branch
+  # 监听 master 分支上的 push 事件
   push:
     branches: [master]
   # trigger deployment manually
   workflow_dispatch:
 
 jobs:
-  docs:
-    runs-on: ubuntu-latest
-
+  build_job:
+    runs-on: ubuntu-latest   #运行环境
+    name: build
     steps:
-      - uses: actions/checkout@v4
-        with:
-          # fetch all commits to get last updated time or other git log info
-          fetch-depth: 0
-      - name: Setup Node.js
+      - name: 签出到虚拟机
+        uses: actions/checkout@v4  #签到虚拟机上
+      - name: 安装nodejs-v20
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
 
-      # run build script
-      - name: Build VuePress site
+      - name: 构建 VuePress site
         run: |
-          npm i -D vuepress@next
-          npm i -D vuepress-theme-plume @vuepress/bundler-vite@next
           npm run docs:build
       - name: 部署到服务器
-        uses: easingthemes/ssh-deploy@v2.1.1
+        uses: wlixcc/SFTP-Deploy-Action@v1.0
         with:
-              SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}
-              ## 复制操作的参数。"-avzr --delete"意味部署时清空服务器目标目录下的文件
-              ARGS: "-rlgoDzvc -i --delete"
-              SOURCE: "dist/"
-              REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-              REMOTE_USER: ${{ secrets.REMOTE_USER }}
-              TARGET: ${{ secrets.TARGET }}
-              EXCLUDE: "/dist/, /node_modules/"
+          username: 'root'   #ssh user name
+          server: '${{ secrets.REMOTE_HOST }}' #引用之前创建好的secret
+          ssh_private_key: ${{ secrets.ACCESS_TOKEN }} #引用之前创建好的secret
+          local_path: '.dist/'  # 对应我们项目build的文件夹路径
+          remote_path: '/home/uiiiii'
+#
+#
