@@ -22,6 +22,8 @@ jobs:
 
       - name: 构建 VuePress site
         run: |
+          npm i -D vuepress@next
+          npm i -D vuepress-theme-plume @vuepress/bundler-vite@next
           npm run docs:build
       - name: 部署到服务器
         uses: wlixcc/SFTP-Deploy-Action@v1.0
