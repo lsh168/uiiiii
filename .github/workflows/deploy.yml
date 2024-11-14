@@ -44,7 +44,7 @@ jobs:
       #     npm i -D vuepress-theme-plume @vuepress/bundler-vite@next
       #     npm run docs:build
       - name: 部署到服务器
-        uses: easingthemes/ssh-deploy@latest  # 使用最新的ssh-deploy action
+        uses: easingthemes/ssh-deploy@v2.0.7  # 使用最新的ssh-deploy action
         env:
           SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}  # 在GitHub仓库的Secrets中设置的SSH私钥
           ARGS: '-avzr --delete'
