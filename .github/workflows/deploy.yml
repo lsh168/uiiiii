@@ -37,7 +37,7 @@ jobs:
             tar -xzf./dist.tar.gz # 假设你在构建VuePress时将输出打包成了dist.tar.gz的形式，可根据实际情况调整
             
             # npm install --production # 如果你的项目在部署后还需要安装生产环境的依赖，可添加这一步
-      # - name: 构建 VuePress site
+      # - name: 构建 VuePress site111
       #   run: |
       #     npm i -D vuepress@next
       #     npm i -D vuepress-theme-plume @vuepress/bundler-vite@next
