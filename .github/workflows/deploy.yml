@@ -6,14 +6,16 @@ on:
     branches: [master]
   # trigger deployment manually
   workflow_dispatch:
-
+# jobs: 将工作流运行的所有作业组合到一起。
 jobs:
   build_job:
     runs-on: ubuntu-latest   #运行环境
     name: build
+    # steps: 将作业中运行的所有步骤组合在一起。
     steps:
       - name: 签出到虚拟机
-        uses: actions/checkout@v4  #签到虚拟机上
+        uses: actions/checkout@v4  #签到虚拟机上    uses: 指定需要运行的 action。
+
       - name: 安装nodejs-v20
         uses: actions/setup-node@v4
         with:
@@ -25,41 +27,14 @@ jobs:
       - name: 构建VuePress site
         run: npm run docs:build
 
-      # - name: 部署到云服务器Deploy to Cloud Server
-      #   uses: appleboy/ssh-action@v0.1.4
-      #   with:
-      #     host: ${{ secrets.SERVER_HOST }}
-      #     username: ${{ secrets.SERVER_USERNAME }}
-      #     password: ${{ secrets.SERVER_PASSWORD }}
-      #     script: |
-      #       cd /home/uiiiii # 将此处替换为你在云服务器上准备部署项目的实际路径
-      #       rm -rf *
-      #       rm ./docs/.vuepress/dist ./
-            # tar -xzf./dist.tar.gz # 假设你在构建VuePress时将输出打包成了dist.tar.gz的形式，可根据实际情况调整
-            
-            # npm install --production # 如果你的项目在部署后还需要安装生产环境的依赖，可添加这一步
-      # - name: 构建 VuePress site111
-      #   run: |
-      #     npm i -D vuepress@next
-      #     npm i -D vuepress-theme-plume @vuepress/bundler-vite@next
-      #     npm run docs:build
       - name: 部署到服务器
         uses: easingthemes/ssh-deploy@v2.0.7  # 使用最新的ssh-deploy action
+        # env: 指定运行 action 时需要用到的环境变量的值。
+        # 变量在github项目的settings--secrets and variables--actions--repository secrets--
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}  # 在GitHub仓库的Secrets中设置的SSH私钥
+          SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}  # 在GitHub仓库的Secrets中设置的SSH私钥   创建ssh密钥时不要设置密码，具体看此actions仓库地址
           ARGS: '-avzr --delete'
-          SOURCE: './docs/.vuepress/dist/'  # VuePress 2构建输出的目录
+          SOURCE: './docs/.vuepress/dist/'  # 源目录，相对于$GITHUB_WORKSPACE根目录的路径
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}  # 云主机的IP地址或域名
           REMOTE_USER: ${{ secrets.REMOTE_USER }}  # 云主机的用户名
           TARGET: ${{ secrets.TARGET }}  # 云主机上存放VuePress 2站点的目录
-
-#
-# with:
-#              SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}
-#              ## 复制操作的参数。"-avzr --delete"意味部署时清空服务器目标目录下的文件
-#              ARGS: "-rlgoDzvc -i --delete"
-#              SOURCE: "dist/"
-#              REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-#              REMOTE_USER: ${{ secrets.REMOTE_USER }}
-#              TARGET: ${{ secrets.TARGET }}
-#              EXCLUDE: "/dist/, /node_modules/"
