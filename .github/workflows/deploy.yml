@@ -25,16 +25,17 @@ jobs:
       - name: 构建VuePress site
         run: npm run docs:build
 
-      - name: 部署到云服务器Deploy to Cloud Server
-        uses: appleboy/ssh-action@v0.1.4
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-          script: |
-            cd /home/uiiiii # 将此处替换为你在云服务器上准备部署项目的实际路径
-            rm -rf *
-            tar -xzf./dist.tar.gz # 假设你在构建VuePress时将输出打包成了dist.tar.gz的形式，可根据实际情况调整
+      # - name: 部署到云服务器Deploy to Cloud Server
+      #   uses: appleboy/ssh-action@v0.1.4
+      #   with:
+      #     host: ${{ secrets.SERVER_HOST }}
+      #     username: ${{ secrets.SERVER_USERNAME }}
+      #     password: ${{ secrets.SERVER_PASSWORD }}
+      #     script: |
+      #       cd /home/uiiiii # 将此处替换为你在云服务器上准备部署项目的实际路径
+      #       rm -rf *
+      #       rm ./docs/.vuepress/dist ./
+            # tar -xzf./dist.tar.gz # 假设你在构建VuePress时将输出打包成了dist.tar.gz的形式，可根据实际情况调整
             
             # npm install --production # 如果你的项目在部署后还需要安装生产环境的依赖，可添加这一步
       # - name: 构建 VuePress site111
@@ -42,15 +43,15 @@ jobs:
       #     npm i -D vuepress@next
       #     npm i -D vuepress-theme-plume @vuepress/bundler-vite@next
       #     npm run docs:build
-      # - name: 部署到服务器
-      #   uses: easingthemes/ssh-deploy@latest  # 使用最新的ssh-deploy action
-      #   env:
-      #     SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}  # 在GitHub仓库的Secrets中设置的SSH私钥
-      #     ARGS: '-avzr --delete'
-      #     SOURCE: 'dist/'  # VuePress 2构建输出的目录
-      #     REMOTE_HOST: ${{ secrets.REMOTE_HOST }}  # 云主机的IP地址或域名
-      #     REMOTE_USER: ${{ secrets.REMOTE_USER }}  # 云主机的用户名
-      #     TARGET: ${{ secrets.TARGET }}  # 云主机上存放VuePress 2站点的目录
+      - name: 部署到服务器
+        uses: easingthemes/ssh-deploy@latest  # 使用最新的ssh-deploy action
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}  # 在GitHub仓库的Secrets中设置的SSH私钥
+          ARGS: '-avzr --delete'
+          SOURCE: './docs/.vuepress/dist/'  # VuePress 2构建输出的目录
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}  # 云主机的IP地址或域名
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}  # 云主机的用户名
+          TARGET: ${{ secrets.TARGET }}  # 云主机上存放VuePress 2站点的目录
 
 #
 # with:
