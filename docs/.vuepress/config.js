@@ -1,5 +1,6 @@
 import { viteBundler } from '@vuepress/bundler-vite'
 import { defineUserConfig } from 'vuepress'
+// import { defaultTheme } from '@vuepress/theme-default'
 import { plumeTheme } from 'vuepress-theme-plume'
 
 export default defineUserConfig({
@@ -8,7 +9,13 @@ export default defineUserConfig({
   port: '80',
   title: 'Uiiiii  （一个u五个i）',
   description: '这是我的第一个 VuePress 站点',
+  // theme: defaultTheme(),
   theme: plumeTheme({
+    plugins: {
+      shiki: {
+        languages: ['javascript', 'typescript', 'vue', 'bash', 'sh',"java","xml","sql","yaml"], 
+      }
+    },
     
     // more...
     footer: {
