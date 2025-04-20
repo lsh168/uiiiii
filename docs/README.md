@@ -23,6 +23,6 @@ config:
         link: https://github.com/pengzhanbo
         theme: alt
 
-- type: custom
+# - type: custom
 footer: nihao
 ---

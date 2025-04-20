@@ -5,11 +5,10 @@ export default defineNoteConfig({
   dir: 'siteNavigation',
   sidebar: [
     {
-      text: '常用站点导航',
-      link:'/siteNavigation/常用导航/',
-      items: [
-       
-      ],
-    },
+      dir: '导航',
+      text: '站点导航',
+      collapsed: false,
+      items: ['常用导航','开发导航','学习导航'],
+    }
   ],
 })

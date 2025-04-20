@@ -53,6 +53,18 @@ export default defineNavbarConfig([
     ],
   },
   {
+    text: '人工智能',
+    icon: 'icon-park-solid:bookshelf',
+    items: [
+      {
+        text: '人工智能',
+        link: '/ai/',
+        activeMatch: '^/ai/',
+        icon: 'emojione:memo',
+      },
+    ],
+  },
+  {
     text: '笔记',
     icon: 'icon-park-solid:bookshelf',
     items: [
@@ -100,7 +112,7 @@ export default defineNavbarConfig([
       // },
       {
         text: '常用导航',
-        link: '/siteNavigation/常用导航/',
+        link: '/siteNavigation/',
         icon: 'mdi:roadmap',
         activeMatch: '^/siteNavigation/',
       },

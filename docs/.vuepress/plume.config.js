@@ -9,7 +9,7 @@ import notes from './notes/index.js'
 // 主题将不需要重启服务的配置移动到了这里。在这里修改配置时，仅通过热更新的方式更新主题。
 export default defineThemeConfig({
   logo: '/plume.png',
-  docsRepo: 'https://github.com/pengzhanbo/vuepress-theme-plume',
+  docsRepo: 'https://github.com/lsh168/uiiiii',
   docsDir: 'docs',
   
   navbar,
@@ -24,13 +24,13 @@ export default defineThemeConfig({
   },
 
   social: [
-    { icon: 'github', link: 'https://github.com/pengzhanbo/vuepress-theme-plume' },
+    { icon: 'github', link: 'https://github.com/lsh168/uiiiii' },
     { icon: 'qq', link: 'https://qm.qq.com/q/FbPPoOIscE' },
   ],
   navbarSocialInclude: ['github', 'qq'],
 
   footer: {
-    copyright: 'Copyright © 2021-present pengzhanbo',
+    copyright: 'Copyright © 2024-present uiiiii.com',
   },
 
 
